@@ -10,10 +10,11 @@ class Song
     @name = name 
     if artist != nil 
       self.artist = artist 
+    end
     if genre != nil 
       self.genre = genre
     end
-  end
+  save
   end
   
   def self.all 
@@ -47,16 +48,12 @@ class Song
   end
   
   def self.find_by_name(name)
-    @@all.find {|song| song.name == name}
+    all.detect {|song| song.name == name}
   end
   
   def self.find_or_create_by_name(name)
-    if self.find_by_name(name)
-      self.find_by_name(name)
-    else 
-      self.create(name)
-    end
-end
+  find_by_name(name) || create(name)
+  end
 end
   #   # Song.artist = artist 
   #   # Artist.song << Song
